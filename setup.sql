@@ -1,0 +1,9 @@
+DROP DATABASE IF EXISTS example_db;
+CREATE DATABASE example_db;
+USE example_db;
+DROP TABLE IF EXISTS Message;
+CREATE TABLE Message(
+    id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    content TEXT,
+    PRIMARY KEY (id)
+);

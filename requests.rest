@@ -1,0 +1,25 @@
+GET http://localhost:3000/api/message
+
+### 
+POST http://localhost:3000/api/message
+content-type: application/json
+
+{
+    "content": "default message"
+}
+
+###
+PUT  http://localhost:3000/api/message
+content-type: application/json
+
+{
+    "newContent" : "modified message"
+}
+###
+DELETE http://localhost:3000/api/message
+content-type: application/json
+
+{
+    "id" : "1"
+}
+ 

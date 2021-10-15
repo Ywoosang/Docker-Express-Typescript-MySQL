@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context : .
+      dockerfile: Dockerfile.dev
+    env_file: ./.env
+    ports:
+      - $APP_LOCAL_PORT:$APP_DOCKER_PORT
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=$DATABASE_HOST
+      - DATABASE_NAME=$DATABASE_NAME
+    volumes:
+      - ./src:/usr/server/src
+  db:
+    image: mysql:8.0
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+    restart: always
+    ports:
+      - $DATABASE_LOCAL_PORT:$DATABASE_DOCKER_PORT
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db_volume:/var/lib/mysql
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql

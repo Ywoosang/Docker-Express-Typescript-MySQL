@@ -1,0 +1,8 @@
+FROM node:14.5.0
+WORKDIR /usr/server
+COPY start.sh .
+RUN chmod 700 ./start.sh
+COPY package.json .
+COPY package-lock.json .
+COPY tsconfig.json .
+CMD ./start.sh
