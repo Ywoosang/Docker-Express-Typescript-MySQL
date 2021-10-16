@@ -18,10 +18,10 @@ export default function (database) {
 
     app.get(path, async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const messages: Memo[] = await database.getAllMessages();
-            console.log(messages);
+            const memos: Memo[] = await database.getAllMessages();
+            console.log(memos);
             res.json({
-                messages
+                memos
             })
         } catch (error) {
             next(error);
