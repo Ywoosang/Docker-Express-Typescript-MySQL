@@ -1,25 +1,26 @@
-GET http://localhost:3000/api/message
+GET http://localhost:3000/api/memo
 
 ### 
-POST http://localhost:3000/api/message
+POST http://localhost:3000/api/memo
 content-type: application/json
 
 {
-    "content": "default message"
+    "content": "default memo"
 }
 
 ###
-PUT  http://localhost:3000/api/message
+PUT  http://localhost:3000/api/memo
 content-type: application/json
 
 {
-    "newContent" : "modified message"
+    "id" : 1,
+    "newContent" : "modified memo"
 }
 ###
-DELETE http://localhost:3000/api/message
+DELETE http://localhost:3000/api/memo
 content-type: application/json
 
 {
     "id" : "1"
 }
- 
+

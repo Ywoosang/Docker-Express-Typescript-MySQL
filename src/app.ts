@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express-serve-static-core';
 // database dependency injection
 export default function (database) {
     const app: express.Application = express();
-    const path: string = '/api/message'; 
+    const path: string = '/api/memo'; 
 
     app.use(cors());
     app.use(morgan("dev"));
@@ -42,8 +42,9 @@ export default function (database) {
     app.put(path, async (req: Request, res: Response, next: NextFunction) => {
         try {
             const newContent: string = req.body.newContent;
-            if (!newContent) return res.sendStatus(400);
-            await database.putMessage(newContent);
+            const id: number = parseInt(req.body.id);
+            if (!newContent || !id || isNaN(id)) return res.sendStatus(400);
+            await database.putMessage(newContent,id);
             res.sendStatus(200);
         } catch (error) {
             next(error);

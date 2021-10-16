@@ -7,7 +7,7 @@ dotenv.config();
 const pool = mysql.createPool({
     host: process.env.DATABASE_HOST,
     user: "root",
-    port:3306,
+    port: 3306,
     password: "example_password",
     database: process.env.DATABASE_NAME,
 });
@@ -23,32 +23,33 @@ pool.getConnection((err, connection) => {
     }
 });
 
-export async function getAllMessages(): Promise<Memo[]>{
-    const [rows] :any = await pool.promise().query(`
-    SELECT * FROM Memo;
-    `);  
+export async function getAllMessages(): Promise<Memo[]> {
+    const [rows]: any = await pool.promise().query(`
+        SELECT * FROM Memo;
+    `);
     return rows;
 }
 
-export async function postMessage(content: string){
+export async function postMessage(content: string) {
     const [rows] = await pool.promise().query(`
-    INSERT INTO Memo (content) 
-    VALUES ('${content}'); 
-    `); 
+        INSERT INTO Memo (content) 
+        VALUES ('${content}'); 
+    `);
     return rows;
 }
 
-export async function putMessage(newContent: string){
+export async function putMessage(newContent: string, id: number) {
     await pool.promise().query(`
         UPDATE Memo
-        SET content='${newContent}';
-    `); 
+        SET content='${newContent}'
+        WHERE id=${id}
+        ;
+    `);
 }
 
-export async function deleteMessage(id: number){
+export async function deleteMessage(id: number) {
     await pool.promise().query(`
         DELETE FROM Memo
         WHERE id=${id};
-    `); 
-}  
- 
+    `);
+}
