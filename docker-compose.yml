@@ -5,6 +5,9 @@ services:
       context : .
       dockerfile: Dockerfile.dev
     env_file: ./.env
+    container_name: app
+    networks: 
+      - example_net
     ports:
       - $APP_LOCAL_PORT:$APP_DOCKER_PORT
     depends_on:
@@ -16,13 +19,22 @@ services:
       - ./src:/usr/server/src
   db:
     image: mysql:8.0
+    container_name: db
     env_file: ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
     restart: always
+    networks: 
+      - example_net
     ports:
       - $DATABASE_LOCAL_PORT:$DATABASE_DOCKER_PORT
     volumes:
       - ./my.cnf:/etc/mysql/conf.d/my.cnf
       - ./db_volume:/var/lib/mysql
       - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+  
+networks: 
+  example_net:
+
+volumes:
+  example_volume: 
