@@ -1,4 +1,4 @@
-export default interface Post {
+export default interface Memo {
     id: number;
     content: string;
 }

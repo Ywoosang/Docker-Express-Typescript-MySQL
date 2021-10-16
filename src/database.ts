@@ -1,5 +1,5 @@
 import * as mysql from 'mysql2';
-import Post from './post.interface';
+import Memo from './interfaces/Memo.interface'
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -23,16 +23,16 @@ pool.getConnection((err, connection) => {
     }
 });
 
-export async function getAllMessages(): Promise<Post[]>{
+export async function getAllMessages(): Promise<Memo[]>{
     const [rows] :any = await pool.promise().query(`
-    SELECT * FROM Message;
+    SELECT * FROM Memo;
     `);  
     return rows;
 }
 
 export async function postMessage(content: string){
     const [rows] = await pool.promise().query(`
-    INSERT INTO Message (content) 
+    INSERT INTO Memo (content) 
     VALUES ('${content}'); 
     `); 
     return rows;
@@ -40,14 +40,14 @@ export async function postMessage(content: string){
 
 export async function putMessage(newContent: string){
     await pool.promise().query(`
-        UPDATE Message
+        UPDATE Memo
         SET content='${newContent}';
     `); 
 }
 
 export async function deleteMessage(id: number){
     await pool.promise().query(`
-        DELETE FROM Message
+        DELETE FROM Memo
         WHERE id=${id};
     `); 
 }  
